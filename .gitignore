@@ -1,0 +1,15 @@
+# 絕對不要傳虛擬環境
+.venv/
+venv/
+ENV/
+
+# 絕對不要傳本地的暫存快取
+**/__pycache__/
+*.pyc
+
+# 本地的 sqlite3 資料庫（看你們組要不要保留本地測試資料，通常不傳，去 Pi 5 新建）
+db.sqlite3
+
+# 系統垃圾檔案
+.DS_Store
+Thumbs.db

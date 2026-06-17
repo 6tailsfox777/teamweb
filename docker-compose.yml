@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # 1. MySQL 資料庫容器
+  db:
+    image: mysql:8.0
+    container_name: yuntech_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123  # Root 密碼
+      MYSQL_DATABASE: smart_pot_db            # 專案資料庫名稱
+      MYSQL_USER: group5_admin                # 管理員帳號 (給教授檢查用)
+      MYSQL_PASSWORD: admin_password_555       # 管理員密碼
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 2. PhpMyAdmin 網頁管理介面容器
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: yuntech_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+    ports:
+      - "8080:80"  # 你可以透過 http://localhost:8080 登入管理資料庫
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:

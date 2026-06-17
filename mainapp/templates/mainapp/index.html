@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5組 - 智慧 IoT 監控系統</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", "Noto Sans TC", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, #e9f5ff 0%, #f7f9fc 45%, #eef4ff 100%);
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 20px 80px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            border-radius: 22px;
+            padding: 38px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #dbeafe;
+            line-height: 1.6;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 22px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .member-list {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .member-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: #1f2937;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: 0.2s;
+        }
+
+        .member-list a:hover {
+            background: #eef6ff;
+            transform: translateY(-1px);
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 999px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .led-panel {
+            text-align: center;
+        }
+
+        .led-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 14px auto 18px;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border-radius: 999px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .led-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #94a3b8;
+            display: inline-block;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-on {
+            background: linear-gradient(90deg, #10b981, #22c55e);
+            color: white;
+        }
+
+        .btn-off {
+            background: linear-gradient(90deg, #ef4444, #f97316);
+            color: white;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="hero">
+            <h1>第5組：智慧盆栽澆水系統</h1>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="card">
+                <h3 class="section-title">👥 組員個人網站</h3>
+                <ul class="member-list">
+                    <li><a href="https://example.com/member1" target="_blank"><span>廖烽均</span><span>→</span></a></li>
+                    <li><a href="https://example.com/member2" target="_blank"><span>曾于庭</span><span>→</span></a></li>
+                    <li><a href="https://example.com/member3" target="_blank"><span>鐘祺翔</span><span>→</span></a></li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h3 class="section-title">📈 數據視覺化中樞</h3>
+                <a class="dashboard-link" href="http://192.168.x.x:1880/ui" target="_blank">點擊前往 Node-Red Dashboard</a>
+            </section>
+        </div>
+
+        <section class="card" style="margin-top: 22px;">
+            <div class="led-panel">
+                <h3 class="section-title" style="justify-content: center;">💡 Pi 5 實體 LED 控制</h3>
+                <div class="led-status">
+                    <span class="led-dot" id="ledDot"></span>
+                    <span id="ledStatusText">等待指令...</span>
+                </div>
+                <div class="btn-row">
+                    <button class="btn-on" onclick="sendLEDCommand('ON')">開啟 LED</button>
+                    <button class="btn-off" onclick="sendLEDCommand('OFF')">關閉 LED</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const ledStatusText = document.getElementById('ledStatusText');
+        const ledDot = document.getElementById('ledDot');
+
+        function updateLedUI(status) {
+            const isOn = status === 'ON';
+            ledStatusText.textContent = isOn ? 'LED 目前為 ON' : 'LED 目前為 OFF';
+            ledDot.style.background = isOn ? '#22c55e' : '#ef4444';
+        }
+
+        function sendLEDCommand(status) {
+            const formData = new FormData();
+            formData.append('status', status);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+            ledStatusText.textContent = '指令送出中...';
+            ledDot.style.background = '#fbbf24';
+
+            fetch('/control-led/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    updateLedUI(data.status);
+                } else {
+                    ledStatusText.textContent = '控制失敗';
+                    ledDot.style.background = '#ef4444';
+                    alert('控制失敗: ' + (data.message || '請稍後再試'));
+                }
+            })
+            .catch(() => {
+                ledStatusText.textContent = '連線失敗';
+                ledDot.style.background = '#ef4444';
+                alert('無法連線到控制 API，請稍後再試。');
+            });
+        }
+    </script>
+</body>
+</html>
