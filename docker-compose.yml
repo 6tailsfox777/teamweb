@@ -60,6 +60,12 @@ services:
     volumes:
       - nodered-data:/data
 
+  my_personal_web:
+    build: ../myiotweb  # 🌟 密技：用 ../ 跨出大專案資料夾，直接指向隔壁的個人網站 Repo
+    container_name: yuntech_member1_personal
+    restart: always
+
+    
 volumes:
   mysql_data:
   nodered-data:  # 確保 Node-RED 拉好的 4 路半圓圖表在重啟後不會消失
