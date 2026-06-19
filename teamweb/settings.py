@@ -75,8 +75,15 @@ WSGI_APPLICATION = "teamweb.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'smart_pot_db',                # 必須跟 docker-compose 裡的 MYSQL_DATABASE 一模一樣
+        'USER': 'group5_admin',                # 必須跟 docker-compose 裡的 MYSQL_USER 一模一樣
+        'PASSWORD': 'admin_password_555',       # 必須跟 docker-compose 裡的 MYSQL_PASSWORD 一模一樣
+        'HOST': 'db',                          # ⚠️ 超級關鍵：這裡要填寫 docker-compose 裡的服務名稱 'db'，不能寫 localhost！
+        'PORT': '3306',                        # MySQL 的標準連接埠
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
