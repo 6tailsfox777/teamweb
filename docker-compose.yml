@@ -70,6 +70,7 @@ services:
       - ../myiotweb:/app
     networks:
       - default  # 加入同一個網路，確保容器間通訊無礙
+
   yuntech_member2_personal:  
     build:                    # <-- 以下內容再往內縮 2 個空格（縮排 4 個空格）
       context: /home/liaofengjun/web
@@ -81,8 +82,8 @@ services:
     ports:
       - "8001:8001"           # 🌟 聽 8001 Port 丟給實體主機
     depends_on:
-      - yuntech_mysql
-        
+      - db
+
 volumes:
   mysql_data:
   nodered-data:  # 確保 Node-RED 拉好的 4 路半圓圖表在重啟後不會消失
