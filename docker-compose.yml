@@ -72,7 +72,7 @@ services:
       - default  # 加入同一個網路，確保容器間通訊無礙
 
   yuntech_member2_personal:  
-    build:                    # <-- 以下內容再往內縮 2 個空格（縮排 4 個空格）
+    build:
       context: /home/liaofengjun/web
       dockerfile: Dockerfile
     volumes:
@@ -80,9 +80,12 @@ services:
     environment:
       - DEBUG=1
     ports:
-      - "8001:8001"           # 🌟 聽 8001 Port 丟給實體主機
+      - "8001:8001"
     depends_on:
       - db
+    # 🌟 祺翔，關鍵是加上下面這兩行！讓他加入你們的大專案網路
+    networks:
+      - yuntech_network  # ⚠️ 請確認這個名字跟你們 yml 最底部定義的 network 名字一模一樣（例如 yuntech_network 或是 teamweb_network）
 
 volumes:
   mysql_data:
