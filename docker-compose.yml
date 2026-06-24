@@ -75,8 +75,7 @@ services:
     build:
       context: /home/liaofengjun/web
       dockerfile: Dockerfile
-    volumes:
-      - /home/liaofengjun/web:/app
+    
     environment:
       - DEBUG=1
     ports:
