@@ -78,6 +78,8 @@ services:
     
     environment:
       - DEBUG=1
+      - Mariadb_tls_disabled_peer_verification=1
+      - MYSQL_client_ssl_mode=DISABLED
     ports:
       - "8001:8001"
     depends_on:
