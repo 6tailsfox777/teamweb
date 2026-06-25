@@ -85,6 +85,7 @@ services:
     # 🌟 祺翔，關鍵是加上下面這兩行！讓他加入你們的大專案網路
     networks:
       - default  # ⚠️ 請確認這個名字跟你們 yml 最底部定義的 network 名字一模一樣（例如 yuntech_network 或是 teamweb_network）
+    command: python manage.py runserver 0.0.0.0:8001
 
 volumes:
   mysql_data:
