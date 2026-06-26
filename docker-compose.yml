@@ -10,7 +10,7 @@ services:
       MYSQL_USER: group5_admin                # 管理員帳號
       MYSQL_PASSWORD: admin_password_555       # 管理員密碼
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
