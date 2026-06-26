@@ -9,3 +9,7 @@ COPY requirements.txt /code/
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /code/
+
+# Clear Python cache to ensure fresh code runs
+RUN find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
+RUN find . -type f -name '*.pyc' -delete 2>/dev/null || true
