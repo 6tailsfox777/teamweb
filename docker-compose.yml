@@ -11,6 +11,7 @@ services:
       MYSQL_PASSWORD: admin_password_555       # 管理員密碼
     ports:
       - "3307:3306"
+    command: --bind-address=0.0.0.0
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
