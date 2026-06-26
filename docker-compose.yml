@@ -46,6 +46,8 @@ services:
     image: nginx:stable-alpine
     container_name: yuntech_nginx
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "80:80"
     depends_on:
