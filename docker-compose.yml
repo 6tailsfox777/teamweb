@@ -13,7 +13,8 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-
+    networks:
+      - default
   # 2. PhpMyAdmin 網頁管理介面容器
   phpmyadmin:
     image: phpmyadmin:latest
@@ -25,7 +26,8 @@ services:
       - "8080:80"  # 透過 http://<Pi5_IP>:8080 登入
     depends_on:
       - db
-
+    networks:
+      - default
   # 🌐 3. Django 網頁系統容器（新增）
   web:
     build: .
@@ -37,7 +39,8 @@ services:
     depends_on:
       - db      # 確保資料庫先啟動，Django 才能連線
       - nodered
-
+    networks:
+      - default
   # 🧱 4. Nginx 反向代理容器
   nginx:
     image: nginx:stable-alpine
@@ -49,12 +52,15 @@ services:
       - web
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-
+    networks:
+      - default
   # 📈 5. Node-RED 數據視覺化中樞容器（新增）
   nodered:
     image: nodered/node-red:latest
     container_name: yuntech_plant_nodered
     restart: always
+    networks:
+      - default
     ports:
       - "1880:1880"  # 透過 http://<Pi5_IP>:1880 進入畫布 /ui 進入指針儀表板
     volumes:
