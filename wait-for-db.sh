@@ -7,5 +7,7 @@ while ! python -c 'import socket; s=socket.socket(); s.settimeout(1); s.connect(
   printf '.'
   sleep 1
 done
-printf '\nMySQL is available, starting Django.\n'
+printf '\nMySQL is available, running migrations.\n'
+python manage.py migrate
+printf 'Migrations completed, starting Django.\n'
 exec python manage.py runserver 0.0.0.0:8000
