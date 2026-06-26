@@ -75,7 +75,7 @@ services:
     build:
       context: /home/liaofengjun/web
       dockerfile: Dockerfile
-    
+    restart: always
     environment:
       - DEBUG=1
       - Mariadb_tls_disabled_peer_verification=1
